@@ -1,6 +1,6 @@
-import { Task, User } from "../utils/graphQl-types";
+import { StatusEnum, Task, User } from "../utils/graphQl-types";
 
-export const UserList: User[] = [
+export const userList: User[] = [
     {
         userId: "1",
         name: "test",
@@ -15,11 +15,12 @@ export const UserList: User[] = [
     }
 ];
 
-export const TaskList: Task[] = [
+export const taskList: Task[] = [
     {
         taskId: "1",
         title: "testTask",
         description: "testDesc",
-        tags: []
+        tags: [],
+        status: StatusEnum.TODO
     }
 ];

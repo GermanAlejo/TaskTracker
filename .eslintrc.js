@@ -12,6 +12,8 @@ module.exports = {
   ignorePatterns: [
     "/lib/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
+    "src/utils/graphQl-types.ts",
+    "src/graphQl/*"
   ],
   rules: {
     "no-unused-vars": "error",

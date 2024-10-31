@@ -1,0 +1,52 @@
+"Graph schema"
+    # Types
+    type User {
+        userId: ID!
+        name: String!
+        pass: String!
+        tasks: [Task]
+    }   
+
+    type Task {
+        taskId: ID!
+        title: String
+        description: String
+        tags: [Tag]
+        status: StatusEnum!
+    }
+      
+    type Category {
+        categoryId: String!
+        name: String
+    }
+
+    type Tag {
+        name: String
+    }
+
+    # Responses
+
+    type NewTaskResponse {
+        code: String!
+        success: Boolean!
+        message: String!
+        task: Task
+    }
+
+    # Enums 
+    enum StatusEnum {
+        TODO
+        WIP
+        DONE
+    }
+
+    # The queries 
+    type Query {
+        users: [User]!
+        tasks: [Task]!
+    }
+
+    # The mutations
+    type Mutation {
+        newTask(id: ID, title: string, description: string, tags: [tag], status: StatusEnum): NewTaskResponse!
+    }
