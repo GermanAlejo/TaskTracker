@@ -17,9 +17,17 @@ export type Tag = {
     name: string
 }
 
+// Inputs
+export type TaskInput = {
+    id: string,
+    title: string,
+    description: string,
+    tags: Tag[]
+}
+
 //Responses
 export type NewTaskResponse = {
-    code: string,
+    code: number,
     success: boolean,
     message: string,
     task: Task
