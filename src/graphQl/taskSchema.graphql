@@ -25,15 +25,18 @@
     }
 
     # Inputs
-    input TaskInput{
+    input TaskInput {
         id: String!
         title: String!
         description: String
-        tags: [Tag]
+        tags: [TagInput]
+    }
+
+    input TagInput {
+        name: String
     }
 
     # Responses
-
     type NewTaskResponse {
         code: String!
         success: Boolean!
