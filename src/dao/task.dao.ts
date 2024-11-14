@@ -1,29 +1,25 @@
 import { ITaskDoc, TaskModel } from "../models/task.model";
-import { log } from "../utils/common";
+import { ERROR_CONSTANTS, log } from "../utils/common";
 
 export async function findTaskByTitle(title: string): Promise<ITaskDoc> {
     try {
         const user: ITaskDoc | null = await TaskModel.findOne({ title }).exec();
-        if(!user) {
-            log.error('Task not found');
-            throw Error('Task not found in dao');
+        if (!user) {
+            log.error(ERROR_CONSTANTS.TASK_NOT_FOUND_ERROR);
+            throw Error(ERROR_CONSTANTS.TASK_NOT_FOUND_ERROR);
         }
         return user;
-    } catch(err) {
+    } catch (err) {
         log.error(err);
         throw err;
     }
 }
 
-export async function findTasks() {
+export async function findTasks(): Promise<ITaskDoc[]> {
     try {
         const tasks: ITaskDoc[] = await TaskModel.find().exec();
-        if(!tasks) {
-            log.error('Error finding tasks');
-            throw Error('Taks not found in dao');
-        }
         return tasks;
-    } catch(err) {
+    } catch (err) {
         log.error(err);
         throw err;
     }

@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema<IUserDoc>(
             type: String,
             require: true,
         },
-        tasks: {
+        tasks: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'UserModel'
-        }
+            ref: 'TaskModel'
+        }]
     }
 );
 

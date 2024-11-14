@@ -1,11 +1,13 @@
+import { ITaskDoc } from "../models/task.model";
+import { IUserDoc } from "../models/user.model";
 import { getTags, getTask, getTasks } from "../services/task.service";
 import { getUserByName, getUsers } from "../services/user.service";
 import { log } from "../utils/common";
-import { TaskInput } from "../utils/graphql-types";
+import { StatusEnum, TaskInput } from "../utils/graphql-types";
 
 export const resolvers = {
     Query: {
-        user: async (args: { name: string }): Promise<any> => {
+        user: async (args: { name: string }): Promise<IUserDoc> => {
             try {
                 return await getUserByName(args.name);
             } catch (err) {
@@ -13,7 +15,7 @@ export const resolvers = {
                 throw err;
             }
         },
-        users: async (): Promise<any> => {
+        users: async (): Promise<IUserDoc[]> => {
             try {
                 return await getUsers();
             } catch (err) {
@@ -21,15 +23,15 @@ export const resolvers = {
                 throw err;
             }
         },
-        tags: async (): Promise<any> => {
+        tags: async (): Promise<typeof StatusEnum> => {
             try {
-                return await getTags();
+                return getTags();
             } catch (err) {
                 log.error(err);
                 throw err;
             }
         },
-        task: async (args: { title: string }): Promise<any> => {
+        task: async (args: { title: string }): Promise<ITaskDoc> => {
             try {
                 return await getTask(args.title);
             } catch (err) {
@@ -37,7 +39,7 @@ export const resolvers = {
                 throw err;
             }
         },
-        tasks: async () => {
+        tasks: async (): Promise<ITaskDoc[]> => {
             try {
                 return await getTasks();
             } catch (err) {

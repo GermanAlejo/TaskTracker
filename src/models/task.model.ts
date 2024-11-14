@@ -19,7 +19,7 @@ const taskSchema = new mongose.Schema<ITaskDoc>(
             require: false,
         },
         tags: {
-            type: [Tag],
+            type: [String],
             require: false
         },
         status: {
