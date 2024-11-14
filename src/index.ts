@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import cors from 'cors';
-import { log, PORT } from "./utils/common";
+import { log, PORT, saveDBData } from "./utils/common";
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { resolvers } from './graphQl/resolvers';
@@ -19,57 +19,61 @@ app.get("/", async (req: Request, res: Response): Promise<any> => {
 // we must convert the file Buffer to a UTF-8 string
 const typeDefs = readFileSync(require.resolve('./graphQl/taskSchema.graphQl')).toString('utf-8');
 
-//run db in local
-connectToDatabase()
-  .then(()=> {
-    log.info("Connected to mongoDB");
-  })
-  .catch((e)=> {
-    log.error("Error connecting to db");
-    log.error(e);
-    log.trace(e);
-  });
+//start db and server 
+start(typeDefs, resolvers, app);
 
-//start server
-startApolloServer(typeDefs, resolvers, app)
-  .then(() => {
+async function start(typeDefs: any, resolvers: any, app: any) {
+  try {
+    //run db in local
+    await connectToDatabase();
+    log.info("Connected to mongoDB");
+    //create some test data
+    await saveDBData();
+    log.info("test data created");
+    //start grapphql server
+    await startApolloServer(typeDefs, resolvers, app);
     log.info(`🚀 Server ready at http://localhost:${PORT}/`);
-  })
-  .catch((e) => {
-    log.error("Error launching server ");
-    log.error(e);
-    log.trace();
-  });
+  } catch (err) {
+    log.error(err);
+    log.trace(err);
+  }
+}
 
 // Note you must call `start()` on the `ApolloServer`
 // instance before passing the instance to `expressMiddleware`
 async function startApolloServer(typeDefs: any, resolvers: any, app: any) {
-  // The ApolloServer constructor requires two parameters: your schema
-  // definition and your set of resolvers.
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers
-  });
 
-  // Required logic for integrating with Express
-  await server.start();
+  try {
+    // The ApolloServer constructor requires two parameters: your schema
+    // definition and your set of resolvers.
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers
+    });
 
-  // Set up our Express middleware to handle CORS, body parsing,
-  // and our expressMiddleware function.
-  app.use(
-    '/graphql',
-    cors<cors.CorsRequest>(),
-    express.json(),
-    // expressMiddleware accepts the same arguments:
-    // an Apollo Server instance and optional configuration options
-    expressMiddleware(server, {
-      context: async ({ req }) => ({ token: req.headers.token }),
-    }),
-  );
+    // Required logic for integrating with Express
+    await server.start();
 
-  // Modified server startup
-  return new Promise(resolve => app.listen({ port: PORT }, resolve));
-  
+    // Set up our Express middleware to handle CORS, body parsing,
+    // and our expressMiddleware function.
+    app.use(
+      '/graphql',
+      cors<cors.CorsRequest>(),
+      express.json(),
+      // expressMiddleware accepts the same arguments:
+      // an Apollo Server instance and optional configuration options
+      expressMiddleware(server, {
+        context: async ({ req }) => ({ token: req.headers.token }),
+      }),
+    );
+
+    // Modified server startup
+    return new Promise(resolve => app.listen({ port: PORT }, resolve));
+
+  } catch (err) {
+    log.error("Error launching server");
+    throw err;
+  }
 }
 
 

@@ -38,10 +38,3 @@ export enum StatusEnum {
     WIP = "In progress",
     DONE = "Done"
 }
-
-//export interface MyContext {
-//    dataSources: {
-//        Users: User[];
-//        Tasks: Task[];
-//    };
-//}

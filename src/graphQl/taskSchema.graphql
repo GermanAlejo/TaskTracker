@@ -53,6 +53,7 @@
 
     # The queries 
     type Query {
+        user(name: String!): User!
         users: [User]!
         tasks: [Task]!
     }
