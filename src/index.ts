@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import cors from 'cors';
-import { log, PORT, saveDBData } from "./utils/common";
+import { log, PORT } from "./utils/common";
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { resolvers } from './graphQl/resolvers';
@@ -28,7 +28,7 @@ async function start(typeDefs: any, resolvers: any, app: any) {
     await connectToDatabase();
     log.info("Connected to mongoDB");
     //create some test data
-    await saveDBData();
+    //await saveDBData();
     log.info("test data created");
     //start grapphql server
     await startApolloServer(typeDefs, resolvers, app);

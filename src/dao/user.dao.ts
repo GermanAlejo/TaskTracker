@@ -19,8 +19,8 @@ export async function findUsers() {
     try {
         const users: IUserDoc[] = await UserModel.find().exec();
         if(!users) {
-            log.error('Error');
-            throw Error('');
+            log.error('Error finding users');
+            throw Error('Users not found in dao');
         }
         return users;
     } catch(err) {

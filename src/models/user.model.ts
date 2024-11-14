@@ -1,11 +1,13 @@
-import { Schema, Document, model } from 'mongoose';
+import mongoose from 'mongoose';
+import { Task } from '../utils/graphql-types'
 
-export interface IUserDoc extends Document {
+export interface IUserDoc extends mongoose.Document {
     name: string,
     password: string,
+    tasks: Task[]
 }   
 
-const userSchema = new Schema<IUserDoc>(   
+const userSchema = new mongoose.Schema<IUserDoc>(   
     {
         name: {
             type: String,
@@ -14,8 +16,12 @@ const userSchema = new Schema<IUserDoc>(
         password: {
             type: String,
             require: true,
+        },
+        tasks: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'UserModel'
         }
     }
 );
 
-export const UserModel = model('UserModel', userSchema, 'TaskAppConnection');
+export const UserModel = mongoose.model('UserModel', userSchema, 'TaskAppConnection');

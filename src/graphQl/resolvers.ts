@@ -1,3 +1,4 @@
+import { getTags, getTask, getTasks } from "../services/task.service";
 import { getUserByName, getUsers } from "../services/user.service";
 import { log } from "../utils/common";
 import { TaskInput } from "../utils/graphql-types";
@@ -6,9 +7,7 @@ export const resolvers = {
     Query: {
         user: async (args: { name: string }): Promise<any> => {
             try {
-                const user = await getUserByName(args.name);
-
-                return user;
+                return await getUserByName(args.name);
             } catch (err) {
                 log.error(err);
                 throw err;
@@ -22,8 +21,29 @@ export const resolvers = {
                 throw err;
             }
         },
-        tasks: () => {
-
+        tags: async (): Promise<any> => {
+            try {
+                return await getTags();
+            } catch (err) {
+                log.error(err);
+                throw err;
+            }
+        },
+        task: async (args: { title: string }): Promise<any> => {
+            try {
+                return await getTask(args.title);
+            } catch (err) {
+                log.error(err);
+                throw err;
+            }
+        },
+        tasks: async () => {
+            try {
+                return await getTasks();
+            } catch (err) {
+                log.error(err);
+                throw(err);
+            }
         }
     },
     Mutation: {

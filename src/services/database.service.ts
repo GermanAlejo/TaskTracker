@@ -1,6 +1,6 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
-import mongoose, { ConnectOptions } from 'mongoose';
+import mongose, { ConnectOptions } from 'mongoose';
 import { log } from "../utils/common";
 import "dotenv/config";
 
@@ -16,7 +16,7 @@ export async function connectToDatabase() {
       const dbOptions: ConnectOptions = {
         dbName: process.env.DB_NAME
       }
-      mongoose.connect(process.env.DB_CONN_STRING, dbOptions);
+      mongose.connect(process.env.DB_CONN_STRING, dbOptions);
     } else {
       log.error("DB Connection string not defined");
       throw new Error("DB Connection string not defined");

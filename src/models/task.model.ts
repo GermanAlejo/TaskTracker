@@ -1,12 +1,14 @@
-import moongose from 'moongose';
+import mongose from 'mongoose';
+import { StatusEnum, Tag } from '../utils/graphql-types';
 
-interface ITask extends moongose.Document {
+export interface ITaskDoc extends mongose.Document {
     title: string;
     description: string;
-
+    tags: Tag[],
+    status: StatusEnum
 }
 
-const taskSchema = new moongose.schema<ITask>(
+const taskSchema = new mongose.Schema<ITaskDoc>(
     {
         title: {
             type: String,
@@ -16,7 +18,17 @@ const taskSchema = new moongose.schema<ITask>(
             type: String,
             require: false,
         },
+        tags: {
+            type: [Tag],
+            require: false
+        },
+        status: {
+            type: String,
+            enum: [StatusEnum.TODO, StatusEnum.WIP, StatusEnum.DONE],
+            default: StatusEnum.TODO,
+            require: true
+        }
     }
 );
 
-export const TaskModel = moongose.model('TaskModel', taskSchema);
+export const TaskModel = mongose.model('TaskModel', taskSchema);
