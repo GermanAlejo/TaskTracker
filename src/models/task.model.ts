@@ -1,5 +1,5 @@
 import mongose from 'mongoose';
-import { StatusEnum, Tag } from '../utils/graphql-types';
+import { StatusEnum, Tag } from '../utils/graphQl-types';
 
 export interface ITaskDoc extends mongose.Document {
     title: string;

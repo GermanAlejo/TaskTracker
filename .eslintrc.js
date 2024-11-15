@@ -13,7 +13,7 @@ module.exports = {
     "/lib/**/*", // Ignore built files.
     "/generated/**/*", // Ignore generated files.
     "src/utils/graphQl-types.ts",
-    "src/graphQl/*"
+    "src/graphQl/taskSchema.graphql*"
   ],
   rules: {
     "no-unused-vars": "error",

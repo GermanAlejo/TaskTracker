@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Task } from '../utils/graphql-types'
+import { Task } from '../utils/graphQl-types'
 
 export interface IUserDoc extends mongoose.Document {
     name: string,

@@ -13,19 +13,36 @@ export type Task = {
     status: StatusEnum
 }
 
+export type Category = {
+    categoryId: string,
+    name: string,
+    owner: User
+}
+
 export type Tag = {
     name: string
 }
 
 // Inputs
+export type UserInput = {
+    name: string,
+    password: string
+}
+
 export type TaskInput = {
-    id: string,
     title: string,
     description: string,
     tags: Tag[]
 }
 
 //Responses
+export type NewUserResponse = {
+    code: number,
+    success: boolean,
+    message: string,
+    user: User
+}
+
 export type NewTaskResponse = {
     code: number,
     success: boolean,

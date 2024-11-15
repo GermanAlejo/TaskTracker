@@ -1,26 +1,23 @@
 import { ITaskDoc, TaskModel } from "../models/task.model";
 import { ERROR_CONSTANTS, log } from "../utils/common";
 
-export async function findTaskByTitle(title: string): Promise<ITaskDoc> {
-    try {
-        const user: ITaskDoc | null = await TaskModel.findOne({ title }).exec();
-        if (!user) {
-            log.error(ERROR_CONSTANTS.TASK_NOT_FOUND_ERROR);
-            throw Error(ERROR_CONSTANTS.TASK_NOT_FOUND_ERROR);
-        }
+export async function findTaskByTitle(title: string): Promise<ITaskDoc | Error> {
+
+    const user: ITaskDoc | null = await TaskModel.findOne({ title }).exec();
+    if (user) {
         return user;
-    } catch (err) {
-        log.error(err);
-        throw err;
+    } else {
+        return new Error(ERROR_CONSTANTS.TASK_NOT_FOUND_ERROR);
     }
 }
 
-export async function findTasks(): Promise<ITaskDoc[]> {
-    try {
-        const tasks: ITaskDoc[] = await TaskModel.find().exec();
+export async function findTasks(): Promise<ITaskDoc[] | Error> {
+
+    const tasks: ITaskDoc[] = await TaskModel.find().exec();
+    if (tasks) {
         return tasks;
-    } catch (err) {
-        log.error(err);
-        throw err;
+    } else {
+        return new Error(ERROR_CONSTANTS.TASK_NOT_FOUND_ERROR);
     }
+
 }

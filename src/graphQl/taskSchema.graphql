@@ -18,6 +18,7 @@
     type Category {
         categoryId: String!
         name: String
+        owner: User!
     }
 
     type Tag {
@@ -25,8 +26,12 @@
     }
 
     # Inputs
+    input UserInput {
+        name: String!
+        pass: String!
+    }
+
     input TaskInput {
-        id: String!
         title: String!
         description: String
         tags: [TagInput]
@@ -37,6 +42,13 @@
     }
 
     # Responses
+    type NewUserResponse {
+        code: String!
+        success: Boolean!
+        message: String!
+        user: User
+    }
+
     type NewTaskResponse {
         code: String!
         success: Boolean!
@@ -60,5 +72,6 @@
 
     # The mutations
     type Mutation {
+        newUser(userInput: UserInput!): NewUserResponse!
         newTask(taskInput: TaskInput!): NewTaskResponse!
     }
