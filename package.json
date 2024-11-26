@@ -31,12 +31,13 @@
     "tslog": "^4.9.3"
   },
   "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.8.4",
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.12.2",
-    "eslint": "^8.57.1",
+    "eslint": "^9.15.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-n": "^16.6.2",
