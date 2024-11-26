@@ -4,7 +4,7 @@ import cors from 'cors';
 import { CONSTANTS_MSG, ERROR_CONSTANTS, log, PORT } from "./utils/common";
 import { ApolloServer, BaseContext } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import { resolvers } from './graphQl/resolvers';
+import { resolvers } from './graphql/resolvers';
 import { readFileSync } from "fs";
 import { connectToDatabase } from "./services/database.service";
 
@@ -17,7 +17,7 @@ app.get("/", async (req: Request, res: Response): Promise<any> => {
 });
 
 // we must convert the file Buffer to a UTF-8 string
-const typeDefs = readFileSync(require.resolve('./graphQl/taskSchema.graphQl')).toString('utf-8');
+const typeDefs = readFileSync(require.resolve('../data/taskSchema.graphQl')).toString('utf-8');
 
 //start db and server
 start(typeDefs, resolvers, app);

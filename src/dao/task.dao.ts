@@ -1,5 +1,5 @@
 import { ITaskDoc, TaskModel } from "../models/task.model";
-import { ERROR_CONSTANTS, log } from "../utils/common";
+import { ERROR_CONSTANTS } from "../utils/common";
 
 export async function findTaskByTitle(title: string): Promise<ITaskDoc | Error> {
 

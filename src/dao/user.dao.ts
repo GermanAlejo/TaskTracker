@@ -1,5 +1,5 @@
 import { IUserDoc, UserModel } from "../models/user.model";
-import { ERROR_CONSTANTS, log } from "../utils/common";
+import { ERROR_CONSTANTS } from "../utils/common";
 
 export async function findUserByName(name: string): Promise<IUserDoc | Error> {
 

@@ -1,5 +1,5 @@
 import { CategoryModel, ICategoryDoc } from "../models/category.model";
-import { ERROR_CONSTANTS, log } from "../utils/common";
+import { ERROR_CONSTANTS } from "../utils/common";
 
 export async function findCategoryByName(name: string): Promise<ICategoryDoc | Error> {
 

@@ -67,7 +67,11 @@
     type Query {
         user(name: String!): User!
         users: [User]!
+        task(title: String!): Task!
         tasks: [Task]!
+        tags: [Tag]!
+        category(name: String!): Category!
+        categories: [Category]!
     }
 
     # The mutations
