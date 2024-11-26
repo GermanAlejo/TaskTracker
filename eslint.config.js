@@ -17,7 +17,7 @@ export default [
           parserOptions: {
             parser: typescriptParser,
             project: true,
-            tsconfigRootDir: import.meta.dirname, // or import.meta.dirname for ESM
+            tsconfigRootDir: import.meta.dirname,
           },
         },
         // This is needed in order to specify the desired behavior for its rules
